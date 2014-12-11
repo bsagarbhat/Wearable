@@ -16,8 +16,6 @@ import java.util.ArrayList;
 
 public class PhotosActivity extends FragmentActivity {
 
-  public static final String PHOTOS_TITLE = "title";
-  private GoogleApiClient mGoogleApiClient;
   private ArrayList<PhotosModel> photosModels;
 
   @Override
@@ -29,11 +27,6 @@ public class PhotosActivity extends FragmentActivity {
       add(new PhotosModel("Rajnikant Second", R.drawable.rajnikant_2));
     }};
 
-    mGoogleApiClient = new GoogleApiClient.Builder(this)
-        .addApi(Wearable.API)
-        .build();
-    mGoogleApiClient.connect();
-
     ViewPager gallery = (ViewPager) findViewById(R.id.gallery);
     gallery.setAdapter(new PhotosAdapter(getSupportFragmentManager(), photosModels));
     gallery.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
@@ -44,7 +37,6 @@ public class PhotosActivity extends FragmentActivity {
 
       @Override
       public void onPageSelected(int i) {
-        showNotification(i);
       }
 
       @Override
@@ -53,16 +45,6 @@ public class PhotosActivity extends FragmentActivity {
       }
     });
   }
-
-  private void showNotification(int index) {
-    PutDataMapRequest putDataMapRequest = PutDataMapRequest.create("/index");
-
-    DataMap map = putDataMapRequest.getDataMap();
-    map.putString(PHOTOS_TITLE, photosModels.get(index).getTitle());
-
-    Wearable.DataApi.putDataItem(mGoogleApiClient, putDataMapRequest.asPutDataRequest());
-  }
-
 
   @Override
   public boolean onCreateOptionsMenu(Menu menu) {

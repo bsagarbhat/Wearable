@@ -9,7 +9,6 @@ import android.widget.TextView;
 
 public class WearActivity extends Activity {
 
-    private ViewPager viewPager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -19,7 +18,7 @@ public class WearActivity extends Activity {
         stub.setOnLayoutInflatedListener(new WatchViewStub.OnLayoutInflatedListener() {
             @Override
             public void onLayoutInflated(WatchViewStub stub) {
-              viewPager = (ViewPager) stub.findViewById(R.id.view_pager);
+              //Anything related to view has to go inside this
             }
         });
     }
